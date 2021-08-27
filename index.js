@@ -3,7 +3,13 @@ const mongoose = require('mongoose')
 const app = express()
 const connectDB = require('./connectDb')
 const goodRouter = require('./routes/goodsrouter')
+const userRouter = require('./routes/userRouter')
 const PORT = 5000 
+
+
+
+
+
 connectDB()
 
 app.use((req, res, next) => {
@@ -12,9 +18,15 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
   });
+
+
+
+
+    
 app.use(express.json())
 
 app.use('/api/goods' , goodRouter  )
+app.use('/api/auth' , userRouter)
 
   app.listen(PORT, (err)=>{
       err 
