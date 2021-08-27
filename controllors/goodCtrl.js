@@ -57,16 +57,19 @@ exports.getOneGood = async(req , res )=>{
 exports.updateGood=async(req , res) =>{
     try{
         const {id}=req.params
+        console.log(id);
         const {title , description , price , imageUri}=req.body
         const good = new Good({
-            id , 
+           _id:  id , 
             title , 
             description , 
             price ,
             imageUri
         })
-        Good.updateOne({_id : id},good )
-        res.status(201).json({msg : 'good updated'})
+        Good.updateOne({_id : id},good ).then(()=>{
+            res.status(201).json(good)
+        })
+        
 
     }
     catch(err){
