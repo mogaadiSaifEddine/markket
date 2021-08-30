@@ -2,14 +2,16 @@ const Good = require('../models/goodModel')
 
 
 exports.addGood= (req , res)=>{
-    
-    const {title , description , price , imageUri } = req.body
+        const userId=req.user._id
+        console.log(userId);
+    const {title , description , price , imageUri  } = req.body
     url = req.protocol+'://'+req.get('host')
      good = new Good({
         title , 
         description, 
         price , 
-        imageUri
+        imageUri , 
+        userId
 
 
     })
@@ -58,13 +60,14 @@ exports.updateGood=async(req , res) =>{
     try{
         const {id}=req.params
         console.log(id);
-        const {title , description , price , imageUri}=req.body
+        const {title , description , price , imageUri , userId}=req.body
         const good = new Good({
            _id:  id , 
             title , 
             description , 
             price ,
-            imageUri
+            imageUri, 
+            userId
         })
         Good.updateOne({_id : id},good ).then(()=>{
             res.status(201).json(good)

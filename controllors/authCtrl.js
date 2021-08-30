@@ -39,6 +39,7 @@ exports.signUp=async(req , res)=>{
 exports.signIn=async(req , res)=>{
     User.findOne({email : req.body.email}).then(
         (user)=>{
+            
             if (!user){
                 return res.status(401).json({msg :'u dont have an account'})
             }
@@ -50,7 +51,7 @@ exports.signIn=async(req , res)=>{
                 }
                 const token = jwt.sign(
                     {userid : user._id} , 
-                    'RANDOM_NOT' ,  
+                    'RANDOM_TOKEN_SECRET' ,  
                     {expiresIn : '12h'}
                 )
                 res.status(201).json({userid : user._id , 
